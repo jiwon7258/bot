@@ -1,6 +1,3 @@
-from django.test import TestCase
-
-# Create your tests here.
 filecon = ''
 contents = open('/home/server/PycharmProjects/bot/meal/cal_list.txt', 'r')
 cont = contents.readlines()

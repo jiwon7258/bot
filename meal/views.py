@@ -1,10 +1,15 @@
+#-*- coding:utf-8 -*-
 from django.shortcuts import render
 
 # Create your views here.
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 import datetime
+from django.core.files import File
+import test
+import sys
+import os.path
 
 def keyboard(request):
     return JsonResponse({
@@ -21,7 +26,7 @@ def answer(request):
 
     return JsonResponse({
         'message': {
-            'text': today_date + '의 ' + cafeteria_name + ' 중식 메뉴입니다.'
+            'text': today_date + '의 ' + cafeteria_name + ' 중식 메뉴입니다.' + getResult()
         },
         'keyboard': {
             'type': 'buttons',
@@ -29,3 +34,15 @@ def answer(request):
         }
 
     })
+
+def getResult() :
+    try :
+        db=''
+        djangofile = File(open('/home/server/PycharmProjects/bot/meal/cal_list.txt'))
+        for list in djangofile:
+            db = db + list
+        return u(db)
+    except :
+        return 'b'
+
+print(getResult())
