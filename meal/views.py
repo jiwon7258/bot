@@ -37,11 +37,13 @@ def answer(request):
 
 def getResult() :
     try :
-        db=''
-        djangofile = File(open('/home/server/PycharmProjects/bot/meal/cal_list.txt'))
-        for list in djangofile:
-            db = db + list
-        return u(db)
+        contents = open('/home/server/PycharmProjects/bot/meal/cal_list.txt', 'r', encoding='utf-8')
+        cont = contents.readlines()
+        filecon = ''
+        for list in cont:
+            filecon = filecon + list
+        print(filecon)
+        return(filecon)
     except :
         return 'b'
 
