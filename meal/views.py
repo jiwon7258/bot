@@ -26,7 +26,7 @@ def answer(request):
 
     return JsonResponse({
         'message': {
-            'text': today_date + '의 ' + cafeteria_name + ' 중식 메뉴입니다.' + getResult()
+            'text': getResult()
         },
         'keyboard': {
             'type': 'buttons',
@@ -37,7 +37,7 @@ def answer(request):
 
 def getResult() :
     try :
-        contents = open('/home/server/PycharmProjects/bot/meal/cal_list.txt', 'r', encoding='utf-8')
+        contents = open('/home/server/PycharmProjects/bot/meal/meal.txt', 'r', encoding='utf-8')
         cont = contents.readlines()
         filecon = ''
         for list in cont:
