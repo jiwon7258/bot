@@ -1,0 +1,5 @@
+sudo rm -rf '/home/server/Django/bot' && sudo cp -r '/home/server/PycharmProjects/bot' '/home/server/Django'  && sudo apachectl -k restart
+
+java -jar /home/jiwon/Django/bot/meal/meal.jar
+ 
+
