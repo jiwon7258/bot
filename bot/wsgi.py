@@ -10,9 +10,9 @@ https://docs.djangoproject.com/en/1.11/howto/deployment/wsgi/
 import os
 import sys
 from django.core.wsgi import get_wsgi_application
-sys.path.append('/home/server/Django/bot')
+sys.path.append('/home/jiwon/Django/bot')
 #sys.path.append('/home/server/Django/bot')
-sys.path.append('/home/server/Django/myvenv/lib/python3.5/site-packages')
+sys.path.append('/home/jiwon/Django/myvenv/lib/python3.5/site-packages')
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bot.settings")
 
