@@ -36,8 +36,8 @@ def answer(request):
     })
 
 def getResult(button_name) :
-    if button_name == '학식이 궁금':
-        try :
+    if button_name == '학식이 궁금' :
+        try:
             contents = open('/home/jiwon/Django/bot/meal/meal.txt', 'r', encoding='utf-8')
             cont = contents.readlines()
             filecon = ''
@@ -47,7 +47,7 @@ def getResult(button_name) :
             return(filecon)
         except :
             return 'b'
-    elif button_name == '일정이 궁금':
+    if button_name == '일정이 궁금' :
         try:
             contents = open('/home/jiwon/Django/bot/meal/cal.txt', 'r', encoding='utf-8')
             cont = contents.readlines()
@@ -58,4 +58,4 @@ def getResult(button_name) :
             return(filecon)
         except :
             return 'b'
-print(getResult())
+
