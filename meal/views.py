@@ -21,12 +21,12 @@ def keyboard(request):
 def answer(request):
     json_str = ((request.body).decode('utf-8'))
     received_json_data = json.loads(json_str)
-    cafeteria_name = received_json_data['content']
+    button_name = received_json_data['content']
     today_date = datetime.date.today().strftime("%m월 %d일")
 
     return JsonResponse({
         'message': {
-            'text': getResult()
+            'text': getResult(button_name)
         },
         'keyboard': {
             'type': 'buttons',
@@ -35,16 +35,27 @@ def answer(request):
 
     })
 
-def getResult() :
-    try :
-        contents = open('/home/jiwon/Django/bot/meal/meal.txt', 'r', encoding='utf-8')
-        cont = contents.readlines()
-        filecon = ''
-        for list in cont:
-            filecon = filecon + list
-        print(filecon)
-        return(filecon)
-    except :
-        return 'b'
-
+def getResult(button_name) :
+    if button_name == '학식이 궁금':
+        try :
+            contents = open('/home/jiwon/Django/bot/meal/meal.txt', 'r', encoding='utf-8')
+            cont = contents.readlines()
+            filecon = ''
+            for list in cont:
+                filecon = filecon + list
+            print(filecon)
+            return(filecon)
+        except :
+            return 'b'
+    elif button_name == '일정이 궁금':
+        try:
+            contents = open('/home/jiwon/Django/bot/meal/cal.txt', 'r', encoding='utf-8')
+            cont = contents.readlines()
+            filecon = ''
+            for list in cont:
+                filecon = filecon + list
+            print(filecon)
+            return(filecon)
+        except :
+            return 'b'
 print(getResult())
