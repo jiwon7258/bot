@@ -1,72 +1,27 @@
-#-*- coding:utf-8 -*-
-from django.shortcuts import render
-
-# Create your views here.
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
-import datetime
-from django.core.files import File
-import test
-import sys
-import os.path
+
 
 def keyboard(request):
     return JsonResponse({
         'type': 'buttons',
-        'buttons': ['학식이 궁금', '학교 일정이 궁금', '반 일정이 궁금']
+        'buttons': ['1', '2']
     })
 
+
 @csrf_exempt
-def answer(request):
-    json_str = ((request.body).decode('utf-8'))
-    received_json_data = json.loads(json_str)
-    button_name = received_json_data['content']
-    today_date = datetime.date.today().strftime("%m월 %d일")
+def message(request):
+    message = ((request.body).decode('utf-8'))
+    return_json_str = json.loads(message)
+    return_str = return_json_str['content']
 
     return JsonResponse({
         'message': {
-            'text': getResult(button_name)
+            'text': "you type " + return_str + "!"
         },
         'keyboard': {
             'type': 'buttons',
-            'buttons': ['학식이 궁금', '학교 일정이 궁금', '반 일정이 궁금']
+            'buttons': ['1', '2']
         }
-
     })
-
-def getResult(button_name) :
-    if button_name == '학식이 궁금':
-        try :
-            contents = open('/home/jiwon/Django/bot/meal/meal.txt', 'r', encoding='utf-8')
-            cont = contents.readlines()
-            filecon = ''
-            for list in cont:
-                filecon = filecon + list
-            print(filecon)
-            return(filecon)
-        except :
-            return 'b'
-    elif button_name == '학교 일정이 궁금':
-        try:
-            contents = open('/home/jiwon/Django/bot/meal/allschedule.txt', 'r', encoding='utf-8')
-            cont = contents.readlines()
-            filecon = ''
-            for list in cont:
-                filecon = filecon + list
-            print(filecon)
-            return(filecon)
-        except :
-            return 'b'
-    elif button_name == "반 일정이 궁금" :
-        try:
-            contents = open('/home/jiwon/Django/bot/meal/class_schedule.txt', 'r', encoding='utf-8')
-            cont = contents.readlines()
-            filecon = ''
-            for list in cont:
-                filecon = filecon + list
-            print(filecon)
-            return(filecon)
-        except :
-            return 'b'
-print(getResult())
