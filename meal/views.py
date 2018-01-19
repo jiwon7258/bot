@@ -69,4 +69,3 @@ def getResult(button_name) :
             return(filecon)
         except :
             return 'b'
-print(getResult())
