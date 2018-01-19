@@ -1,6 +1,7 @@
 from __future__ import print_function
 import httplib2
 import os
+import time
 
 from apiclient import discovery
 from oauth2client import client
@@ -32,7 +33,6 @@ def get_credentials():
         Credentials, the obtained credential.
     """
     home_dir = os.path.expanduser('~')
-
     credential_dir = os.path.join(home_dir, '.credentials')
     if not os.path.exists(credential_dir):
         os.makedirs(credential_dir)
@@ -60,28 +60,35 @@ def main():
     credentials = get_credentials()
     http = credentials.authorize(httplib2.Http())
     service = discovery.build('calendar', 'v3', http=http)
-    # print(credentials)
+
     now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
     print('Getting the upcoming 10 events')
     eventsResult = service.events().list(
         calendarId='primary', timeMin=now, maxResults=10, singleEvents=True,
         orderBy='startTime').execute()
-    # print(eventsResult)
     events = eventsResult.get('items', [])
     print(events)
-    # print(eventsResult)
+
     if not events:
         print('No upcoming events found.')
-
-    cal_list = open('cal_list.txt', 'w')
     for event in events:
         start = event['start'].get('dateTime', event['start'].get('date'))
-        # try :
-        #     print(start, event['summary'], event['description'])
-        # except :
-        cal_list.write(start +' '+ event['summary'] + '\n')
         print(start, event['summary'])
+
+    class_schedule = open("class_schedule.txt",'w')
+    if not events:
+        class_schedule.write("일정이 없습니다")
+    for event in events:
+        start = event['start'].get('dateTime', event['start'].get('date'))
+        data = start + ' ' + event['summary'] + '\n'
+        class_schedule.write(data)
+
+
+
+
 
 
 if __name__ == '__main__':
-    main()
+    while True :
+        main()
+        time.sleep(5)
