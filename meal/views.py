@@ -14,7 +14,7 @@ import os.path
 def keyboard(request):
     return JsonResponse({
         'type': 'buttons',
-        'buttons': ['학식이 궁금', '일정이 궁금']
+        'buttons': ['학식이 궁금', '학교 일정이 궁금', '반 일정이 궁금']
     })
 
 @csrf_exempt
@@ -30,7 +30,7 @@ def answer(request):
         },
         'keyboard': {
             'type': 'buttons',
-            'buttons': ['학식이 궁금', '일정이 궁금']
+            'buttons': ['학식이 궁금', '학교 일정이 궁금', '반 일정이 궁금']
         }
 
     })
@@ -47,9 +47,20 @@ def getResult(button_name) :
             return(filecon)
         except :
             return 'b'
-    elif button_name == '일정이 궁금':
+    elif button_name == '학교 일정이 궁금':
         try:
-            contents = open('/home/jiwon/Django/bot/meal/cal.txt', 'r', encoding='utf-8')
+            contents = open('/home/jiwon/Django/bot/meal/allschedule.txt', 'r', encoding='utf-8')
+            cont = contents.readlines()
+            filecon = ''
+            for list in cont:
+                filecon = filecon + list
+            print(filecon)
+            return(filecon)
+        except :
+            return 'b'
+    elif button_name == "반 일정이 궁금" :
+        try:
+            contents = open('/home/jiwon/Django/bot/meal/class_schedule.txt', 'r', encoding='utf-8')
             cont = contents.readlines()
             filecon = ''
             for list in cont:
